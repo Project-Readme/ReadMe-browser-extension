@@ -1,0 +1,23 @@
+{
+    "manifest_version": 2,
+    "name": "ReadMe Extension",
+    "version": "0.1",
+    "description": "Use this extension to save articles offline",
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "jquery-3.4.1.js",
+                "index.js"
+            ]
+        }
+    ],
+    "browser_action": {
+        "default_icon": "icon.png"
+    },
+    "permissions": [
+        "tabs"
+    ]
+}
