@@ -10,7 +10,8 @@
             ],
             "js": [
                 "jquery-3.4.1.js",
-                "index.js"
+                "index.js",
+                "./node_modules/axios/index.js"
             ]
         }
     ],

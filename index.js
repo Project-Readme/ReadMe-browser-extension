@@ -1,22 +1,16 @@
-// alert('Hi')
+import axios from 'axios';
+// const cheerio = require('cheerio');
 
-// var firstHref = $("a[href^='http']").eq(0).attr("href");
-// alert(firstHref)
-// console.log(firstHref);
+const URL = window.location.href;
 
-// chrome.runtime.onMessage.addListener(
-//     function (request, sender, sendResponse) {
-//         if (request.message === "clicked_browser_action") {
-//             var firstHref = $("a[href^='http']").eq(0).attr("href");
+const scrape = async () => {
+   try {
+       const {data} = await axios.get(URL);
+       return data;
 
-//             console.log(firstHref);
-//             alert('done');
-//         }
-//     }
-// );
+   } catch (error) {
+       console.log(error);
+   }
+}
 
-
-// chrome.tabs.query({ 'active': true, 'lastFocusedWindow': true }, function (tabs) {
-//     var url = tabs[0].url;
-//     console.log(url)
-// });
+console.log(scrape());
