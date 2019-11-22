@@ -1,16 +1,17 @@
-import axios from 'axios';
-// const cheerio = require('cheerio');
-
 const URL = window.location.href;
 
 const scrape = async () => {
-   try {
-       const {data} = await axios.get(URL);
-       return data;
+    try {
+        const result = await fetch(URL, {
+            method: 'GET',
 
-   } catch (error) {
-       console.log(error);
-   }
+        });
+        console.log(await result.text())
+    }
+    catch (err) {
+        console.log(err)
+    }
 }
 
-console.log(scrape());
+scrape();
+alert('Your article has been saved');
