@@ -3,21 +3,26 @@
     "name": "ReadMe Extension",
     "version": "0.1",
     "description": "Use this extension to save articles offline",
+    "permissions": [
+        "tabs"
+    ],
+    "background": {
+        "page": "bg.html"
+    },
     "content_scripts": [
         {
             "matches": [
                 "<all_urls>"
             ],
             "js": [
-                "jquery-3.4.1.js",
                 "index.js"
             ]
         }
     ],
+    "content_security_policy": "script-src 'self' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com; object-src 'self'",
     "browser_action": {
-        "default_icon": "icon.png"
-    },
-    "permissions": [
-        "tabs"
-    ]
+        "default_icon": "icon.png",
+        "default_popup": "index.html"
+    }
 }
+

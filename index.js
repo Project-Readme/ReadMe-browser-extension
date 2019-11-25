@@ -1,17 +1,21 @@
 const URL = window.location.href;
-
-const scrape = async () => {
+// document.addEventListener('DOMContentLoaded', function () {
+//     document.getElementById('addArticle').addEventListener('click', sendArticle);
+// });
+const sendArticle = async () => {
     try {
         const result = await fetch(URL, {
             method: 'GET',
-
         });
-        console.log(await result.text())
+        console.log('in function')
+        const article = await result.text()
+        console.log('here', article)
+        chrome.runtime.sendMessage({ article }, function (response) {
+            alert('Your article has been saved');
+        });
     }
     catch (err) {
         console.log(err)
     }
 }
-
-scrape();
-alert('Your article has been saved');
+sendArticle();
