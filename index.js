@@ -1,17 +1,22 @@
 const URL = window.location.href;
 
-const scrape = async () => {
+const getArticle = async () => {
     try {
         const result = await fetch(URL, {
             method: 'GET',
-
         });
-        console.log(await result.text())
+        const article = await result.text()
+        return article;
     }
     catch (err) {
         console.log(err)
     }
 }
 
-scrape();
-alert('Your article has been saved');
+const sendArticle = async () => {
+    const article = await getArticle()
+    chrome.runtime.sendMessage({ article }, function (response) {
+    });
+}
+
+sendArticle()
