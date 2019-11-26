@@ -1,3 +1,4 @@
+
 firebase.initializeApp({
     apiKey: 'AIzaSyDnTBGPTFHhQ9GFsd3MoypwJ0MBXNH7mO4',
     authDomain: 'readme-fa514.firebaseapp.com',
@@ -10,10 +11,11 @@ firebase.initializeApp({
 });
 
 const database = firebase.firestore();
-const ref = database.collection('content').doc('newArticle')
 
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
+        const url = sender.tab.url.split('/').join('')
+        const ref = database.collection('content').doc(url)
         ref.set({
             URL: sender.tab.url,
             Article: request.article
