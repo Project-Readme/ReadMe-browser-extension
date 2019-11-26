@@ -18,6 +18,7 @@ chrome.runtime.onMessage.addListener(
         const ref = database.collection('content').doc(url)
         ref.set({
             URL: sender.tab.url,
-            Article: request.article
+            Article: request.article,
+            Title: request.title
         })
     });

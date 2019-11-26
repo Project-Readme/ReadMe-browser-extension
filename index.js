@@ -1,6 +1,6 @@
-const URL = window.location.href;
+// var img = document.getElementsByTagName('img')[0].src
 
-const getArticle = async () => {
+var getArticle = async () => {
     try {
         const result = await fetch(URL, {
             method: 'GET',
@@ -13,9 +13,10 @@ const getArticle = async () => {
     }
 }
 
-const sendArticle = async () => {
+var sendArticle = async () => {
+    var title = document.getElementsByTagName('title')[0].innerHTML
     const article = await getArticle()
-    chrome.runtime.sendMessage({ article }, function (response) {
+    chrome.runtime.sendMessage({ article, title }, function (response) {
     });
 }
 
