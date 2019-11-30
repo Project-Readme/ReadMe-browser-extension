@@ -15,16 +15,16 @@ chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
         if (request.type === 'loginForm') {
             let user;
-            if (JSON.parse(localStorage.getItem('user')).email) {
-                //get from local storage
-                user = JSON.parse(localStorage.getItem('user'))
-            } else {
-                //or login
+            if (!JSON.parse(localStorage.getItem('user'))) {
+                //login
                 firebase.auth().signInWithEmailAndPassword(request.email, request.password)
                     .catch(error => console.log(error));
 
-                const user = firebase.auth().currentUser;
+                user = firebase.auth().currentUser;
                 localStorage.setItem('user', JSON.stringify(user))
+            } else {
+                //get from local storage
+                user = JSON.parse(localStorage.getItem('user'))
             }
             sendResponse(user.displayName.trim())
         } else {

@@ -1,6 +1,11 @@
 const form = document.getElementById('loginForm')
-const button = document.getElementById('addArticle')
+const addButton = document.getElementById('addArticle')
 form.onsubmit = submit;
+
+if (JSON.parse(localStorage.getItem('user'))) {
+    form.style.display = 'none'
+    addButton.style.display = 'block'
+}
 
 function submit(evt) {
     evt.preventDefault()
@@ -10,7 +15,7 @@ function submit(evt) {
         //user successfully logged in hide login form show article button
         if (response) {
             form.style.display = 'none'
-            button.style.display = 'block'
+            addButton.style.display = 'block'
         }
     });
 }
@@ -20,8 +25,6 @@ function injectTheScript() {
         chrome.tabs.executeScript(tabs[0].id, { file: "index.js" });
     });
 }
-
-const addButton = document.getElementById('addArticle')
 
 addButton.addEventListener('click', function () {
     injectTheScript()
