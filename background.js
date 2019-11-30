@@ -29,9 +29,19 @@ chrome.runtime.onMessage.addListener(
             sendResponse(user.displayName.trim())
         } else {
             //send article
+            const currUser = JSON.parse(localStorage.getItem('user'))
             const url = sender.tab.url.split('/').join('')
-            const ref = database.collection('content').doc(url)
-            ref.set({
+            const usersRef = database.collection('users').doc(currUser.email).collection('articles').doc(url)
+            const articlesRef = database.collection('articles').doc(url)
+            usersRef.set({
+                URL: sender.tab.url,
+                Head: request.head,
+                Body: request.body,
+                Title: request.title,
+                Image: request.img
+            })
+
+            articlesRef.set({
                 URL: sender.tab.url,
                 Head: request.head,
                 Body: request.body,
