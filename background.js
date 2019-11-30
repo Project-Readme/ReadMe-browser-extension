@@ -13,12 +13,30 @@ const database = firebase.firestore();
 
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
-        const url = sender.tab.url.split('/').join('')
-        const ref = database.collection('content').doc(url)
-        ref.set({
-            URL: sender.tab.url,
-            HTML: request.html,
-            CSS: request.css,
-            Title: request.title
-        })
+        if (request.type === 'loginForm') {
+            let user;
+            if (JSON.parse(localStorage.getItem('user')).email) {
+                //get from local storage
+                user = JSON.parse(localStorage.getItem('user'))
+            } else {
+                //or login
+                firebase.auth().signInWithEmailAndPassword(request.email, request.password)
+                    .catch(error => console.log(error));
+
+                const user = firebase.auth().currentUser;
+                localStorage.setItem('user', JSON.stringify(user))
+            }
+            sendResponse(user.displayName.trim())
+        } else {
+            //send article
+            const url = sender.tab.url.split('/').join('')
+            const ref = database.collection('content').doc(url)
+            ref.set({
+                URL: sender.tab.url,
+                Head: request.head,
+                Body: request.body,
+                Title: request.title,
+                Image: request.img
+            })
+        }
     });
