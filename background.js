@@ -1,4 +1,3 @@
-/* eslint-disable newline-per-chained-call */
 firebase.initializeApp({
     apiKey: 'AIzaSyDnTBGPTFHhQ9GFsd3MoypwJ0MBXNH7mO4',
     authDomain: 'readme-fa514.firebaseapp.com',
@@ -11,6 +10,7 @@ firebase.initializeApp({
 });
 
 const database = firebase.firestore();
+console.log(database)
 let incriment = firebase.firestore.FieldValue.increment(1);
 
 async function login(email, password) {
@@ -40,11 +40,11 @@ chrome.runtime.onMessage.addListener(
             //send article
             const currUser = JSON.parse(localStorage.getItem('user'))
             const url = sender.tab.url.split('/').join('')
-            const usersRef = database.collection('users').doc(currUser.email).collection('articles').doc(url)\
+            const usersRef = database.collection('users').doc(currUser.email).collection('articles').doc(url)
             const articlesRef = database.collection('articles').doc(url)
-            articlesRef.get().then(function(doc) {
+            articlesRef.get().then(function (doc) {
                 if (doc.exists) {
-                    database.collection('articles').doc(url).update({Popularity: incriment});
+                    database.collection('articles').doc(url).update({ Popularity: incriment });
                     console.log('Document data:', doc.data());
                 } else {
                     // doc.data() will be undefined in this case
@@ -65,7 +65,7 @@ chrome.runtime.onMessage.addListener(
                     Title: request.title,
                     Image: request.img
                 })
-            }).catch(function(error) {
+            }).catch(function (error) {
                 console.log('Error getting document:', error);
             });
         }
