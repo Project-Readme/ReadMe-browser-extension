@@ -10,7 +10,6 @@ firebase.initializeApp({
 });
 
 const database = firebase.firestore();
-console.log(database)
 let incriment = firebase.firestore.FieldValue.increment(1);
 
 async function login(email, password) {
@@ -45,7 +44,6 @@ chrome.runtime.onMessage.addListener(
             articlesRef.get().then(function (doc) {
                 if (doc.exists) {
                     database.collection('articles').doc(url).update({ Popularity: incriment });
-                    console.log('Document data:', doc.data());
                 } else {
                     // doc.data() will be undefined in this case
                     articlesRef.set({
@@ -56,7 +54,6 @@ chrome.runtime.onMessage.addListener(
                         Image: request.img,
                         Popularity: 1
                     })
-                    console.log('No such document!');
                 }
                 usersRef.set({
                     URL: sender.tab.url,
