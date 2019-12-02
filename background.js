@@ -39,7 +39,7 @@ chrome.runtime.onMessage.addListener(
             const currUser = JSON.parse(localStorage.getItem('user'))
             const url = sender.tab.url.split('/').join('')
             const usersRef = database.collection('users').doc(currUser.email).collection('articles').doc(url)
-            const articlesRef = database.collection('articles').doc(url)
+            const articlesRef = database.collection('content').doc(url)
             usersRef.set({
                 URL: sender.tab.url,
                 Head: request.head,

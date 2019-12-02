@@ -27,8 +27,6 @@ function submit(evt) {
     const password = document.getElementById('password')
     chrome.runtime.sendMessage({ type: form.id, email: email.value, password: password.value }, function (response) {
         //user successfully logged in hide login form show article button
-        console.log('response', response)
-        // console.log('status', response.status)
         if (response === 'success') {
             form.style.display = 'none'
             addButton.style.display = 'block'
