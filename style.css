@@ -1,0 +1,51 @@
+body {
+    height: 90px;
+    width: 125px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+h3 {
+    text-align: center;
+    font-size: 16px;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    padding: 0;
+}
+
+h4 {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+button {
+    border-radius: 12px;
+    border-width: 1px;
+    border-color: #a19b9a; 
+    font-size: 12px;
+    font-weight: 600;
+    margin: 3px;
+}
+
+input:focus {
+    outline: 0;
+}
+  
+button:focus {
+    outline: 0;
+}
+  
+
+span {
+    font-weight: bold;
+}
+
+input {
+    border-radius: 6px;
+    border-color: #c7c7c7;
+}
+

@@ -13,29 +13,35 @@ firebase.initializeApp({
 const database = firebase.firestore();
 let incriment = firebase.firestore.FieldValue.increment(1);
 
+async function login(email, password) {
+    try {
+        const login = await firebase.auth().signInWithEmailAndPassword(email, password)
+        localStorage.setItem('user', JSON.stringify(login.user))
+        return 'success'
+    } catch (error) {
+        console.log(error)
+        return 'unsuccessful'
+    }
+}
+
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
         if (request.type === 'loginForm') {
-            let user;
-            if (!JSON.parse(localStorage.getItem('user'))) {
-                //login
-                firebase.auth().signInWithEmailAndPassword(request.email, request.password)
-                    .catch(error => console.log(error));
-
-                user = firebase.auth().currentUser;
-                localStorage.setItem('user', JSON.stringify(user))
-            } else {
-                //get from local storage
-                user = JSON.parse(localStorage.getItem('user'))
-            }
-            sendResponse(user.displayName.trim())
-        } else {
+            //login
+            login(request.email, request.password).then(info => sendResponse(info))
+            return true;
+        } else if (request.type === 'logOut') {
+            //logout
+            firebase.auth().signOut();
+            user = 'loggedOut'
+            localStorage.removeItem('user')
+        }
+        else {
             //send article
             const currUser = JSON.parse(localStorage.getItem('user'))
             const url = sender.tab.url.split('/').join('')
-            const usersRef = database.collection('users').doc(currUser.email).collection('articles').doc(url)
+            const usersRef = database.collection('users').doc(currUser.email).collection('articles').doc(url)\
             const articlesRef = database.collection('articles').doc(url)
-
             articlesRef.get().then(function(doc) {
                 if (doc.exists) {
                     database.collection('articles').doc(url).update({Popularity: incriment});
