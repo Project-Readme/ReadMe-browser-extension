@@ -48,6 +48,7 @@ chrome.runtime.onMessage.addListener(
             const usersRef = database.collection('users').doc(currUser.email).collection('articles').doc(url)
             const articlesRef = database.collection('articles').doc(url)
             articlesRef.get().then(function (doc) {
+                const now = Date.now();
                 if (doc.exists) {
                     database.collection('articles').doc(url).update({ Popularity: incriment });
                 } else {
@@ -58,7 +59,8 @@ chrome.runtime.onMessage.addListener(
                         Body: request.body,
                         Title: request.title,
                         Image: request.img,
-                        Popularity: 1
+                        Popularity: 1,
+                        Created: now
                     })
                 }
                 usersRef.set({
