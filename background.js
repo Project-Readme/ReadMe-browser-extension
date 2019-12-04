@@ -37,12 +37,7 @@ chrome.runtime.onMessage.addListener(
         }
         else {
 
-            console.log(request.body);
-
-
-
             //send article
-
             const currUser = JSON.parse(localStorage.getItem('user'))
             const url = sender.tab.url.split('/').join('')
             const usersRef = database.collection('users').doc(currUser.email).collection('articles').doc(url)
