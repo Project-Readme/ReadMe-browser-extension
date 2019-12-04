@@ -36,6 +36,7 @@ chrome.runtime.onMessage.addListener(
             localStorage.removeItem('user')
         }
         else {
+
             //send article
             const currUser = JSON.parse(localStorage.getItem('user'))
             const url = sender.tab.url.split('/').join('')
