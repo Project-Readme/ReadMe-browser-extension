@@ -5,7 +5,7 @@
 Welcome to **ReadMe**: An easy-to-use browser extension that allows users to send articles from your browser to our mobile app.
 
 ### Getting Started
-**How to Install**: Go to [I'm an inline-style link](chrome://extensions) Turn on developer mode on the top right. Click on the Load unpacked button and select this directory
+**How to Install**: Go to [chrome://extensions](chrome://extensions) Turn on developer mode on the top right. Click on the Load unpacked button and select this directory
 
 ![Output sample](https://github.com/Project-ReadMe/ReadMe-browser-extension/blob/master/resources/extension-setup.gif)
 
